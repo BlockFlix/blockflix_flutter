@@ -27,6 +27,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     return BlocConsumer<MovieDetailBloc, MovieDetailState>(
       listener: (context, state) {
         // TODO: implement listener
+        if (state is NavigateToWatchMovie) {
+          print("Hi");
+          Navigator.pushNamed(context, '/moviewatch');
+        }
       },
       listenWhen: (previous, current) => current is MovieDetailActionState,
       buildWhen: (previous, current) => current is! MovieDetailActionState,
@@ -66,7 +70,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   backgroundColor: MaterialStateProperty.all(
                                       const Color(0xFFB090F4))),
                               onPressed: () {
-                                movieDetailBloc.add(BuyButtonClickedEvent());
+                                if (movie.isBought) {
+                                  movieDetailBloc.add(ViewButtonClickedEvent());
+                                } else {
+                                  movieDetailBloc.add(BuyButtonClickedEvent());
+                                }
                               },
                               child: Text(
                                 "${movie.isBought ? 'Watch' : 'Buy 60K Gwei'}",

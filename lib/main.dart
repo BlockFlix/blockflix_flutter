@@ -1,6 +1,7 @@
 import 'package:blockflix/screens/homeScreen/ui/home_screen.dart';
 import 'package:blockflix/screens/login/ui/login_screen.dart';
 import 'package:blockflix/screens/movieDetailsScreen/ui/movie_detail_screen.dart';
+import 'package:blockflix/screens/movieWatchingScreen/ui/movie_watching_screen.dart';
 import 'package:blockflix/screens/signUp/ui/sign_up_screen.dart';
 import 'package:blockflix/screens/splashScreen/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +37,10 @@ class MyApp extends StatelessWidget {
             "/login" : (context) => const LoginScreen(),
             "/": (context) => const HomeScreen(),
             "/signup" : (context) => const SignUpScreen(),
-            "/moviedetail":(context) => const MovieDetailScreen()
-            },
-
-          initialRoute: "/moviedetail",
+            "/moviedetail":(context) => const MovieDetailScreen(),
+            "/moviewatch" : (context) => const MovieWatchingScreen(),
+          },
+          initialRoute: "/splash",
         );
       },
     );

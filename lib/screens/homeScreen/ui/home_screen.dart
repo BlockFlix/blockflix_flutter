@@ -60,6 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         // TODO: implement listener
+        if (state is NavigateToMovieScreen) {
+          Navigator.pushNamed(context, "/moviedetail");
+        }
       },
       bloc: homeBloc,
       listenWhen: (previous, current) => current is HomeActionState,
@@ -141,67 +144,70 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: sciFiMovieList.length,
+                          itemCount: actionMovieList.length,
                           itemBuilder: (BuildContext context, int index) {
                             Movie movie = sciFiMovieList[index];
-                            return Container(
-                              margin: EdgeInsets.symmetric(horizontal: 14.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    child: Image.network(
-                                      movie.imageUrl,
-                                      height: 200.h,
+                            return GestureDetector(
+                              onTap: () => homeBloc.add(MovieButtonClickedEvent()),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      child: Image.network(
+                                        movie.imageUrl,
+                                        height: 200.h,
+                                        width: 150.w,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
                                       width: 150.w,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 150.w,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          movie.name,
-                                          style: GoogleFonts.openSans(
-                                              color: const Color(0xFFF5F5F5),
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.more_horiz))
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 150.w,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("${movie.year}",
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            movie.name,
                                             style: GoogleFonts.openSans(
-                                                color: const Color(0xFFE1E1E1),
+                                                color: const Color(0xFFF5F5F5),
                                                 fontSize: 16.sp,
-                                                fontWeight: FontWeight.w500)),
-                                        Text(
-                                          "${movie.duration}",
-                                          style: GoogleFonts.openSans(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xFFE1E1E1)),
-                                        )
-                                      ],
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(Icons.more_horiz))
+                                        ],
+                                      ),
                                     ),
-                                  )
-                                ],
+                                    SizedBox(
+                                      width: 150.w,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("${movie.year}",
+                                              style: GoogleFonts.openSans(
+                                                  color: const Color(0xFFE1E1E1),
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w500)),
+                                          Text(
+                                            "${movie.duration}",
+                                            style: GoogleFonts.openSans(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xFFE1E1E1)),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),
@@ -228,67 +234,70 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: actionMovieList.length,
+                          itemCount: sciFiMovieList.length,
                           itemBuilder: (BuildContext context, int index) {
                             Movie movie = actionMovieList[index];
-                            return Container(
-                              margin: EdgeInsets.symmetric(horizontal: 14.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    child: Image.network(
-                                      movie.imageUrl,
-                                      height: 200.h,
+                            return GestureDetector(
+                              onTap: () => homeBloc.add(MovieButtonClickedEvent()),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      child: Image.network(
+                                        movie.imageUrl,
+                                        height: 200.h,
+                                        width: 150.w,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
                                       width: 150.w,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 150.w,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          movie.name,
-                                          style: GoogleFonts.openSans(
-                                              color: const Color(0xFFF5F5F5),
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.more_horiz))
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 150.w,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("${movie.year}",
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            movie.name,
                                             style: GoogleFonts.openSans(
-                                                color: const Color(0xFFE1E1E1),
+                                                color: const Color(0xFFF5F5F5),
                                                 fontSize: 16.sp,
-                                                fontWeight: FontWeight.w500)),
-                                        Text(
-                                          "${movie.duration}",
-                                          style: GoogleFonts.openSans(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xFFE1E1E1)),
-                                        )
-                                      ],
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(Icons.more_horiz))
+                                        ],
+                                      ),
                                     ),
-                                  )
-                                ],
+                                    SizedBox(
+                                      width: 150.w,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("${movie.year}",
+                                              style: GoogleFonts.openSans(
+                                                  color: const Color(0xFFE1E1E1),
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w500)),
+                                          Text(
+                                            "${movie.duration}",
+                                            style: GoogleFonts.openSans(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xFFE1E1E1)),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),
@@ -318,64 +327,67 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: romanceMovieList.length,
                           itemBuilder: (BuildContext context, int index) {
                             Movie movie = romanceMovieList[index];
-                            return Container(
-                              margin: EdgeInsets.symmetric(horizontal: 14.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    child: Image.network(
-                                      movie.imageUrl,
-                                      height: 200.h,
+                            return GestureDetector(
+                              onTap: () => homeBloc.add(MovieButtonClickedEvent()),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      child: Image.network(
+                                        movie.imageUrl,
+                                        height: 200.h,
+                                        width: 150.w,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
                                       width: 150.w,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 150.w,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          movie.name,
-                                          style: GoogleFonts.openSans(
-                                              color: const Color(0xFFF5F5F5),
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.more_horiz))
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 150.w,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("${movie.year}",
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            movie.name,
                                             style: GoogleFonts.openSans(
-                                                color: const Color(0xFFE1E1E1),
+                                                color: const Color(0xFFF5F5F5),
                                                 fontSize: 16.sp,
-                                                fontWeight: FontWeight.w500)),
-                                        Text(
-                                          "${movie.duration}",
-                                          style: GoogleFonts.openSans(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xFFE1E1E1)),
-                                        )
-                                      ],
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(Icons.more_horiz))
+                                        ],
+                                      ),
                                     ),
-                                  )
-                                ],
+                                    SizedBox(
+                                      width: 150.w,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("${movie.year}",
+                                              style: GoogleFonts.openSans(
+                                                  color: const Color(0xFFE1E1E1),
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w500)),
+                                          Text(
+                                            "${movie.duration}",
+                                            style: GoogleFonts.openSans(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xFFE1E1E1)),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),
