@@ -29,7 +29,9 @@ class _MovieWatchingScreenState extends State<MovieWatchingScreen> {
       videoPlayerController: _videoPlayerController,
       aspectRatio: 16 / 9,
       autoInitialize: true,
+      autoPlay: true,
       looping: true,
+      fullScreenByDefault: true,
       // You can customize the controls here
       materialProgressColors: ChewieProgressColors(
         playedColor: Colors.red,

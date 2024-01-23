@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Movie> actionMovieList = [];
   List<Movie> sciFiMovieList = [];
   List<Movie> romanceMovieList = [];
+  final SearchController controller = SearchController();
 
   Future<void> secureScreen() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
@@ -113,12 +114,56 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           Spacer(),
+                          SearchAnchor(
+                              viewBackgroundColor: const Color(0xFF0E0412),
+                              dividerColor: Colors.white24,
+                              searchController: controller,
+                              builder: (BuildContext context,
+                                  SearchController controller) {
+                                return IconButton(
+                                  icon: const Icon(Icons.search),
+                                  onPressed: () {
+                                    controller.openView();
+                                  },
+                                );
+                              },
+                              suggestionsBuilder: (BuildContext context,
+                                  SearchController controller) {
+                                final searchTerm =
+                                    controller.text.toLowerCase();
+                                final filteredMovies = movies
+                                    .where((movie) => movie.name
+                                        .toLowerCase()
+                                        .contains(searchTerm))
+                                    .toList();
+                                return List.generate(filteredMovies.length,
+                                    (int index) {
+                                  Movie item = filteredMovies[index];
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(vertical: 5),
+                                    child: ListTile(
+                                      leading: Image.network(
+                                        item.imageUrl,
+                                        width: 30.w,
+                                        height: 57.h,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      title: Text(item.name),
+                                      onTap: () {
+                                        homeBloc.add(MovieButtonClickedEvent());
+                                        setState(() {
+                                          controller.closeView(item.name);
+                                        });
+                                      },
+                                    ),
+                                  );
+                                });
+                              }),
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.search,
-                                size: 30,
-                              )),
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/account");
+                              },
+                              icon: Icon(Icons.settings_rounded))
                         ],
                       ),
                     ),
@@ -148,7 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (BuildContext context, int index) {
                             Movie movie = sciFiMovieList[index];
                             return GestureDetector(
-                              onTap: () => homeBloc.add(MovieButtonClickedEvent()),
+                              onTap: () =>
+                                  homeBloc.add(MovieButtonClickedEvent()),
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: Column(
@@ -179,7 +225,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           IconButton(
                                               onPressed: () {},
-                                              icon: const Icon(Icons.more_horiz))
+                                              icon:
+                                                  const Icon(Icons.more_horiz))
                                         ],
                                       ),
                                     ),
@@ -193,7 +240,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Text("${movie.year}",
                                               style: GoogleFonts.openSans(
-                                                  color: const Color(0xFFE1E1E1),
+                                                  color:
+                                                      const Color(0xFFE1E1E1),
                                                   fontSize: 16.sp,
                                                   fontWeight: FontWeight.w500)),
                                           Text(
@@ -238,7 +286,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (BuildContext context, int index) {
                             Movie movie = actionMovieList[index];
                             return GestureDetector(
-                              onTap: () => homeBloc.add(MovieButtonClickedEvent()),
+                              onTap: () =>
+                                  homeBloc.add(MovieButtonClickedEvent()),
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: Column(
@@ -269,7 +318,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           IconButton(
                                               onPressed: () {},
-                                              icon: const Icon(Icons.more_horiz))
+                                              icon:
+                                                  const Icon(Icons.more_horiz))
                                         ],
                                       ),
                                     ),
@@ -283,7 +333,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Text("${movie.year}",
                                               style: GoogleFonts.openSans(
-                                                  color: const Color(0xFFE1E1E1),
+                                                  color:
+                                                      const Color(0xFFE1E1E1),
                                                   fontSize: 16.sp,
                                                   fontWeight: FontWeight.w500)),
                                           Text(
@@ -328,7 +379,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (BuildContext context, int index) {
                             Movie movie = romanceMovieList[index];
                             return GestureDetector(
-                              onTap: () => homeBloc.add(MovieButtonClickedEvent()),
+                              onTap: () =>
+                                  homeBloc.add(MovieButtonClickedEvent()),
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: Column(
@@ -359,7 +411,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           IconButton(
                                               onPressed: () {},
-                                              icon: const Icon(Icons.more_horiz))
+                                              icon:
+                                                  const Icon(Icons.more_horiz))
                                         ],
                                       ),
                                     ),
@@ -373,7 +426,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Text("${movie.year}",
                                               style: GoogleFonts.openSans(
-                                                  color: const Color(0xFFE1E1E1),
+                                                  color:
+                                                      const Color(0xFFE1E1E1),
                                                   fontSize: 16.sp,
                                                   fontWeight: FontWeight.w500)),
                                           Text(

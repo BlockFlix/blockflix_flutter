@@ -1,3 +1,4 @@
+import 'package:blockflix/screens/accountScreen/ui/account_screen.dart';
 import 'package:blockflix/screens/homeScreen/ui/home_screen.dart';
 import 'package:blockflix/screens/login/ui/login_screen.dart';
 import 'package:blockflix/screens/movieDetailsScreen/ui/movie_detail_screen.dart';
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
       designSize: const Size(393, 852),
       minTextAdapt: true,
       splitScreenMode: true,
-      // Use builder only if you need to use library outside ScreenUtilInit context
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
             "/signup" : (context) => const SignUpScreen(),
             "/moviedetail":(context) => const MovieDetailScreen(),
             "/moviewatch" : (context) => const MovieWatchingScreen(),
+            "/account" : (context) => const AccountScreen()          
           },
           initialRoute: "/splash",
         );
